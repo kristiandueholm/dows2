@@ -1,0 +1,24 @@
+(library
+  (name definitions)
+  (modules Definitions))
+
+(library
+  (name printer)
+  (modules Printer)
+  (libraries definitions))
+
+(library
+  (name semantics)
+  (modules Semantics)
+  (libraries definitions))
+
+(library
+  (name evaluator)
+  (modules Evaluator)
+  (libraries definitions))
+
+(executable
+  (name prints2)
+  (modules Prints2)
+  (libraries definitions printer semantics evaluator)
+  (flags (:standard -w -32))) ;Supressing unused variable error for utop experimenting
