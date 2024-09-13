@@ -19,3 +19,5 @@ let eprog_strings = List.map (fun x -> string_of_eprog x) eprog_list
 let eprog_errors = List.map (fun x -> semant x) eprog_list
 
 let () = List.iter (Printf.printf "%s\n\n") eprog_strings
+
+let ()  = Printf.printf "Eprog1 evaluates to %d\n" (Evaluator.eval eprog_01)

@@ -6,6 +6,7 @@ type semant_error
 
 type semant_result
   = Ok
-  | Error of semant_error list 
+  | Error of semant_error list
+  | Warning of semant_error list
   
 val semant: Definitions.eprog -> semant_result

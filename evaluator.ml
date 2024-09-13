@@ -22,10 +22,17 @@ let rec eval_expr variables = function
 | BinOp (x, y, z) -> op_of_binop x (eval_expr variables y) (eval_expr variables z)
 
 let rec eval_helper variables = function
-| [], e -> eval_expr variables e
-| Val (var, e1) :: tl, e2 -> assert false
-| Input var :: tl, e ->
+| [] -> variables
+| Val (var, e1) :: tl ->
+    let variables_new = VarMap.add var (eval_expr variables e1) variables in
+    eval_helper variables_new tl
+| Input var :: tl ->
+    let user_input = () |> eprog_input in
+    let variables_new = VarMap.add var user_input variables in
+    eval_helper variables_new tl
 
 let eval prog = 
   let variables : int VarMap.t = VarMap.empty in
-  eval_helper variables prog
+  let (statements, return_expr) = prog in
+  let variables_new = eval_helper variables statements in
+  eval_expr variables_new return_expr

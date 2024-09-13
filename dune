@@ -17,8 +17,17 @@
   (modules Evaluator)
   (libraries definitions))
 
+(library
+  (name cg)
+  (modules Cg)
+  (libraries definitions x86))
+
+(library
+  (name x86)
+  (modules X86))
+
 (executable
   (name prints2)
   (modules Prints2)
-  (libraries definitions printer semantics evaluator)
+  (libraries definitions printer semantics evaluator cg)
   (flags (:standard -w -32))) ;Supressing unused variable error for utop experimenting
